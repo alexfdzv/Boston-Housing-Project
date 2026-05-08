@@ -1,0 +1,46 @@
+data:
+  raw_path: data/raw/housing.csv
+  processed_path: data/processed/housing_clean.csv
+  columns:
+    - CRIM
+    - ZN
+    - INDUS
+    - CHAS
+    - NOX
+    - RM
+    - AGE
+    - DIS
+    - RAD
+    - TAX
+    - PTRATIO
+    - B
+    - LSTAT
+    - MEDV
+
+cleaning:
+  outlier_method: iqr          # 'iqr' o 'zscore'
+  iqr_factor: 1.5
+  zscore_threshold: 3.0
+  cap_outliers: true           # true = cap, false = eliminar
+
+normalization:
+  method: standard             # 'standard' o 'minmax'
+  exclude_columns:
+    - CHAS
+    - MEDV
+
+modeling:
+  test_size: 0.2
+  random_state: 42
+  linear_regression: {}
+  random_forest:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+  knn_regression:
+    n_neighbors: 5
+  kmeans:
+    n_clusters: 3
+    random_state: 42
+    init: k-means++
+    n_init: 10
