@@ -1,4 +1,4 @@
 [core]
-    remote = gdrive
-['remote "gdrive"']
-    url = gdrive://VUx_8ChilO0OH1WM2usPPzT7zq9zH_kU
+    remote = localremote
+['remote "localremote"']
+    url = C:/Users/alexf/Documents/boston_storage
