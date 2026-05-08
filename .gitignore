@@ -1,0 +1,3 @@
+# Datos (trackeados por DVC, no por Git)
+data/raw/housing.csv
+data/processed/
