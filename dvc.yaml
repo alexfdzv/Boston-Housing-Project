@@ -1,0 +1,22 @@
+stages:
+  load:
+    cmd: python src/01_load_data.py
+    deps:
+    - data/raw/housing.csv
+    - src/01_load_data.py
+    outs:
+    - data/processed/_loaded.csv
+  clean:
+    cmd: python src/02_clean_data.py
+    deps:
+    - data/processed/_loaded.csv
+    - src/02_clean_data.py
+    outs:
+    - data/processed/housing_clean.csv
+  normalize:
+    cmd: python src/03_normalize.py
+    deps:
+    - data/processed/housing_clean.csv
+    - src/03_normalize.py
+    outs:
+    - data/processed/housing_scaled.csv

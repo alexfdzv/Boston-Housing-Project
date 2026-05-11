@@ -1,0 +1,50 @@
+schema: '2.0'
+stages:
+  load:
+    cmd: python src/01_load_data.py
+    deps:
+    - path: data/raw/housing.csv
+      hash: md5
+      md5: d4accdce7a25600298819f8e28e8d593
+      size: 49082
+    - path: src/01_load_data.py
+      hash: md5
+      md5: 90ec6ef101689649b496d0ddd70fe53a
+      size: 586
+    outs:
+    - path: data/processed/_loaded.csv
+      hash: md5
+      md5: 816accbde67bef53bf4ba77861bc2900
+      size: 37652
+  clean:
+    cmd: python src/02_clean_data.py
+    deps:
+    - path: data/processed/_loaded.csv
+      hash: md5
+      md5: 816accbde67bef53bf4ba77861bc2900
+      size: 37652
+    - path: src/02_clean_data.py
+      hash: md5
+      md5: 94d9e4ca51a82450cdb40ccf7ad19f69
+      size: 4156
+    outs:
+    - path: data/processed/housing_clean.csv
+      hash: md5
+      md5: 7d2e703fdc87d3568c126b00c07e10e1
+      size: 39606
+  normalize:
+    cmd: python src/03_normalize.py
+    deps:
+    - path: data/processed/housing_clean.csv
+      hash: md5
+      md5: 7d2e703fdc87d3568c126b00c07e10e1
+      size: 39606
+    - path: src/03_normalize.py
+      hash: md5
+      md5: 2563fffa929aeb1a2357401d9bc3a6e7
+      size: 718
+    outs:
+    - path: data/processed/housing_scaled.csv
+      hash: md5
+      md5: 0ca216f88a8c6460a792e4b1a9f9e063
+      size: 122953

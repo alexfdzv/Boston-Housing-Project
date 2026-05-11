@@ -1,6 +1,6 @@
 data:
-  raw_path: ../data/raw/housing.csv
-  processed_path: ../data/processed/housing_clean.csv
+  raw_path: data/raw/housing.csv
+  processed_path: data/processed/housing_clean.csv
   columns:
     - CRIM
     - ZN
@@ -16,6 +16,7 @@ data:
     - B
     - LSTAT
     - MEDV
+  scaled_path: data/processed/housing_scaled.csv
 
 cleaning:
   outlier_method: iqr          # 'iqr' o 'zscore'
