@@ -38,3 +38,10 @@ stages:
     - src/06_random_forest.py
     outs:
     - models/random_forest.pkl
+  knn:
+    cmd: python src/07_knn.py
+    deps:
+    - data/processed/housing_scaled.csv
+    - src/07_knn.py
+    outs:
+    - models/knn.pkl
