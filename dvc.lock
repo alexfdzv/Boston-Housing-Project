@@ -70,5 +70,21 @@ stages:
     outs:
     - path: models/linear_model.joblib
       hash: md5
-      md5: 5399a0b789b7b7c6001073c550a2c6f3
+      md5: 531b89628f52231ed73b2575edbe7d6c
       size: 1089
+  random_forest:
+    cmd: python src/06_random_forest.py
+    deps:
+    - path: data/processed/housing_scaled.csv
+      hash: md5
+      md5: 0ca216f88a8c6460a792e4b1a9f9e063
+      size: 122953
+    - path: src/06_random_forest.py
+      hash: md5
+      md5: 2ea2cf93d90ba2f124fe460ea4d210ae
+      size: 1167
+    outs:
+    - path: models/random_forest.pkl
+      hash: md5
+      md5: d367b1fed1eff3f54982ec13a1c69be5
+      size: 3501793

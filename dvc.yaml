@@ -31,3 +31,10 @@ stages:
     - modeling.random_state
     outs:
     - models/linear_model.joblib
+  random_forest:
+    cmd: python src/06_random_forest.py
+    deps:
+    - data/processed/housing_scaled.csv
+    - src/06_random_forest.py
+    outs:
+    - models/random_forest.pkl
