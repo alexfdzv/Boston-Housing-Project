@@ -1,6 +1,4 @@
 [core]
     remote = storage
-[cache]
-    dir = C:/dvc_cache
 ['remote "storage"']
-    url = C:/Users/alexf/Documents/boston_storage
+    url = ../dvc_storage

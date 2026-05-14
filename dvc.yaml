@@ -1,40 +1,80 @@
 stages:
   load:
-    cmd: python src/01_load_data.py
+    cmd: py -3.12 src/01_load_data.py
     deps:
     - data/raw/housing.csv
     - src/01_load_data.py
+    - params.yaml
+    params:
+    - data.raw_path
+    - data.columns
     outs:
     - data/processed/_loaded.csv
   clean:
-    cmd: python src/02_clean_data.py
+    cmd: py -3.12 src/02_clean_data.py
     deps:
     - data/processed/_loaded.csv
     - src/02_clean_data.py
+    - params.yaml
+    params:
+    - data.processed_path
+    - cleaning.iqr_factor
+    - cleaning.cap_outliers
+    - normalization.exclude_columns
     outs:
     - data/processed/housing_clean.csv
   normalize:
-    cmd: python src/03_normalize.py
+    cmd: py -3.12 src/03_normalize.py
     deps:
     - data/processed/housing_clean.csv
     - src/03_normalize.py
+    - params.yaml
+    params:
+    - data.processed_path
+    - data.scaled_path
+    - data.model_ready.kmeans_scaled_path
+    - data.model_ready.linear_scaled_path
+    - normalization.method
+    - normalization.exclude_columns
     outs:
     - data/processed/housing_scaled.csv
-  linear_model:
-    cmd: python src/05_linear_model.py
+    - data/model_ready/kmeans/housing_kmeans_scaled.csv
+    - data/model_ready/linear_model/housing_linear_scaled.csv
+  kmeans:
+    cmd: py -3.12 src/04__KMeans.py
     deps:
-    - data/processed/housing_scaled.csv
+    - data/processed/housing_clean.csv
+    - data/model_ready/kmeans/housing_kmeans_scaled.csv
+    - src/04__KMeans.py
+    - params.yaml
+    params:
+    - data.model_ready.kmeans_scaled_path
+    - data.kmeans_path
+    - data.kmeans_profile_path
+    - data.kmeans_metrics_path
+    - data.kmeans_model_path
+    - modeling.kmeans.n_clusters
+    - modeling.kmeans.random_state
+    - modeling.kmeans.random_states_to_compare
+    - modeling.kmeans.init
+    - modeling.kmeans.n_init
+    - modeling.kmeans.feature_exclude_columns
+    outs:
+    - data/processed/housing_kmeans.csv
+    - data/processed/kmeans_cluster_profile.csv
+    - models/kmeans_model.joblib
+    metrics:
+    - metrics/kmeans_metrics.json:
+        cache: false
+  linear_model:
+    cmd: py -3.12 src/05_linear_model.py
+    deps:
+    - data/model_ready/linear_model/housing_linear_scaled.csv
     - src/05_linear_model.py
     - params.yaml
     params:
+    - data.model_ready.linear_scaled_path
     - modeling.test_size
     - modeling.random_state
     outs:
     - models/linear_model.joblib
-  random_forest:
-    cmd: python src/06_random_forest.py
-    deps:
-    - data/processed/housing_scaled.csv
-    - src/06_random_forest.py
-    outs:
-    - models/random_forest.pkl
