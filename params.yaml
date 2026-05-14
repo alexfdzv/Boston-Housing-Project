@@ -17,6 +17,7 @@ data:
     - LSTAT
     - MEDV
   scaled_path: data/processed/housing_scaled.csv
+  model_path: models/linear_model.joblib
 
 cleaning:
   outlier_method: iqr          # 'iqr' o 'zscore'

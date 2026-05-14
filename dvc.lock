@@ -48,3 +48,27 @@ stages:
       hash: md5
       md5: 0ca216f88a8c6460a792e4b1a9f9e063
       size: 122953
+  linear_model:
+    cmd: python src/05_linear_model.py
+    deps:
+    - path: data/processed/housing_scaled.csv
+      hash: md5
+      md5: 0ca216f88a8c6460a792e4b1a9f9e063
+      size: 122953
+    - path: params.yaml
+      hash: md5
+      md5: 8dab19f718f5f4edfd406457efcd5327
+      size: 931
+    - path: src/05_linear_model.py
+      hash: md5
+      md5: a4f9dc2f3bbd7c4b6fa78d16dba582c3
+      size: 3586
+    params:
+      params.yaml:
+        modeling.random_state: 42
+        modeling.test_size: 0.2
+    outs:
+    - path: models/linear_model.joblib
+      hash: md5
+      md5: 5399a0b789b7b7c6001073c550a2c6f3
+      size: 1089

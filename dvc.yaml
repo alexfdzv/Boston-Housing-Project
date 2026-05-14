@@ -20,3 +20,14 @@ stages:
     - src/03_normalize.py
     outs:
     - data/processed/housing_scaled.csv
+  linear_model:
+    cmd: python src/05_linear_model.py
+    deps:
+    - data/processed/housing_scaled.csv
+    - src/05_linear_model.py
+    - params.yaml
+    params:
+    - modeling.test_size
+    - modeling.random_state
+    outs:
+    - models/linear_model.joblib
