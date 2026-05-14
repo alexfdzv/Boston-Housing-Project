@@ -1,3 +1,6 @@
 # Datos (trackeados por DVC, no por Git)
 data/raw/housing.csv
 data/processed/
+__pycache__/
+*.py[cod]
+.matplotlib_cache/

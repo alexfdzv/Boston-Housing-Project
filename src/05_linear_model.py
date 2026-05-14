@@ -1,90 +1,73 @@
 """
-Entrena el modelo de regresión lineal (OLS) sobre el dataset
-normalizado y guarda el modelo entrenado para su reutilización.
- 
-Decisión documentada en notebooks/algorithm2.ipynb:
-- Se compararon OLS, Ridge y Lasso
-- Las tres variantes obtuvieron métricas equivalentes (R² ≈ 0.685)
-- Se seleccionó OLS por simplicidad e interpretabilidad
+Train a baseline OLS linear regression model on the normalized dataset.
 """
- 
+
 import os
-import pandas as pd
-import numpy as np
-import yaml
+
 import joblib
- 
+import numpy as np
+import pandas as pd
+import yaml
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
- 
-# ─────────────────────────────────────────────
-# 1. Cargar parámetros desde params.yaml
-# ─────────────────────────────────────────────
-print("[1/4] Cargando parámetros...")
- 
+
+
+print("[1/4] Loading parameters...")
+
 with open("params.yaml", "r") as f:
     params = yaml.safe_load(f)
- 
-SCALED_PATH  = params["data"]["scaled_path"]
-MODEL_PATH   = params["data"]["model_path"]
-TEST_SIZE    = params["modeling"]["test_size"]
+
+SCALED_PATH = params["data"]["model_ready"]["linear_scaled_path"]
+MODEL_PATH = params["data"]["model_path"]
+TEST_SIZE = params["modeling"]["test_size"]
 RANDOM_STATE = params["modeling"]["random_state"]
-TARGET       = "MEDV" 
- 
+TARGET = "MEDV"
+
 print(f"      scaled_path  : {SCALED_PATH}")
 print(f"      model_path   : {MODEL_PATH}")
 print(f"      target       : {TARGET}")
 print(f"      test_size    : {TEST_SIZE}")
 print(f"      random_state : {RANDOM_STATE}")
- 
-# ─────────────────────────────────────────────
-# 2. Cargar datos y hacer split
-# ─────────────────────────────────────────────
-print("[2/4] Cargando datos y separando train/test...")
- 
+
+print("[2/4] Loading data and splitting train/test...")
+
 df = pd.read_csv(SCALED_PATH)
- 
+
 X = df.drop(columns=[TARGET])
 y = df[TARGET]
- 
+
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y,
+    X,
+    y,
     test_size=TEST_SIZE,
-    random_state=RANDOM_STATE
+    random_state=RANDOM_STATE,
 )
- 
-print(f"      Shape total : {df.shape}")
-print(f"      Train       : {X_train.shape[0]} filas")
-print(f"      Test        : {X_test.shape[0]} filas")
+
+print(f"      Total shape : {df.shape}")
+print(f"      Train rows  : {X_train.shape[0]}")
+print(f"      Test rows   : {X_test.shape[0]}")
 print(f"      Features    : {X.columns.tolist()}")
- 
-# ─────────────────────────────────────────────
-# 3. Entrenar modelo
-# ─────────────────────────────────────────────
-print("[3/4] Entrenando modelo OLS (LinearRegression)...")
- 
-modelo = LinearRegression()
-modelo.fit(X_train, y_train)
- 
-# Evaluar
-y_pred = modelo.predict(X_test)
-r2   = r2_score(y_test, y_pred)
+
+print("[3/4] Training OLS model...")
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+r2 = r2_score(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-mae  = mean_absolute_error(y_test, y_pred)
- 
-print(f"      R²   (test) : {r2:.4f}")
+mae = mean_absolute_error(y_test, y_pred)
+
+print(f"      R2   (test) : {r2:.4f}")
 print(f"      RMSE (test) : {rmse:.4f} k USD")
 print(f"      MAE  (test) : {mae:.4f} k USD")
- 
-# ─────────────────────────────────────────────
-# 4. Guardar modelo
-# ─────────────────────────────────────────────
-print("[4/4] Guardando modelo entrenado...")
- 
+
+print("[4/4] Saving trained model...")
+
 os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
-joblib.dump(modelo, MODEL_PATH)
- 
-print(f"      Guardado en : {MODEL_PATH}")
+joblib.dump(model, MODEL_PATH)
+
+print(f"      Saved to: {MODEL_PATH}")
 print()
-print("Entrenamiento completado exitosamente.")
+print("Training completed successfully.")

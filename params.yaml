@@ -17,7 +17,14 @@ data:
     - LSTAT
     - MEDV
   scaled_path: data/processed/housing_scaled.csv
+  model_ready:
+    kmeans_scaled_path: data/model_ready/kmeans/housing_kmeans_scaled.csv
+    linear_scaled_path: data/model_ready/linear_model/housing_linear_scaled.csv
   model_path: models/linear_model.joblib
+  kmeans_path: data/processed/housing_kmeans.csv
+  kmeans_profile_path: data/processed/kmeans_cluster_profile.csv
+  kmeans_metrics_path: metrics/kmeans_metrics.json
+  kmeans_model_path: models/kmeans_model.joblib
 
 cleaning:
   outlier_method: iqr          # 'iqr' o 'zscore'
@@ -44,5 +51,13 @@ modeling:
   kmeans:
     n_clusters: 3
     random_state: 42
+    random_states_to_compare:
+      - 0
+      - 21
+      - 42
+      - 77
+      - 123
     init: k-means++
     n_init: 10
+    feature_exclude_columns:
+      - MEDV

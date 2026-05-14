@@ -1,0 +1,78 @@
+{
+  "algorithm": "KMeans",
+  "n_clusters": 3,
+  "features": [
+    "CRIM",
+    "ZN",
+    "INDUS",
+    "CHAS",
+    "NOX",
+    "RM",
+    "AGE",
+    "DIS",
+    "RAD",
+    "TAX",
+    "PTRATIO",
+    "B",
+    "LSTAT"
+  ],
+  "inertia": 2750.702704440934,
+  "cluster_counts": {
+    "0": 119,
+    "1": 154,
+    "2": 233
+  },
+  "random_state_comparison": [
+    {
+      "random_state": 0,
+      "inertia": 2750.702704440934,
+      "silhouette_score": 0.30752194274190414,
+      "cluster_counts": {
+        "0": 154,
+        "1": 233,
+        "2": 119
+      }
+    },
+    {
+      "random_state": 21,
+      "inertia": 2750.702704440934,
+      "silhouette_score": 0.30752194274190414,
+      "cluster_counts": {
+        "0": 119,
+        "1": 154,
+        "2": 233
+      }
+    },
+    {
+      "random_state": 42,
+      "inertia": 2750.702704440934,
+      "silhouette_score": 0.30752194274190414,
+      "cluster_counts": {
+        "0": 119,
+        "1": 154,
+        "2": 233
+      }
+    },
+    {
+      "random_state": 77,
+      "inertia": 2750.702704440934,
+      "silhouette_score": 0.30752194274190414,
+      "cluster_counts": {
+        "0": 154,
+        "1": 233,
+        "2": 119
+      }
+    },
+    {
+      "random_state": 123,
+      "inertia": 2750.702704440934,
+      "silhouette_score": 0.30752194274190414,
+      "cluster_counts": {
+        "0": 119,
+        "1": 154,
+        "2": 233
+      }
+    }
+  ],
+  "silhouette_score": 0.30752194274190414
+}
