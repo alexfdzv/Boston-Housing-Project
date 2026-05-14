@@ -9,12 +9,12 @@ stages:
       size: 35735
     - path: params.yaml
       hash: md5
-      md5: bc78f35ce839475092590a77e74ad450
-      size: 1394
+      md5: c635d8bcc5fe4b585a97c04530ef628b
+      size: 1457
     - path: src/01_load_data.py
       hash: md5
-      md5: 2d15b9023057dd303f1cdc943493049c
-      size: 923
+      md5: cc127b2a47277b151b09edd11eb382bb
+      size: 953
     params:
       params.yaml:
         data.columns:
@@ -47,12 +47,12 @@ stages:
       size: 36640
     - path: params.yaml
       hash: md5
-      md5: bc78f35ce839475092590a77e74ad450
-      size: 1394
+      md5: c635d8bcc5fe4b585a97c04530ef628b
+      size: 1457
     - path: src/02_clean_data.py
       hash: md5
-      md5: 3b63dbe2b1a34f2850684d95312820b0
-      size: 2086
+      md5: c10b271b109e61b2eaa4b396c54548f6
+      size: 2162
     params:
       params.yaml:
         cleaning.cap_outliers: true
@@ -75,12 +75,12 @@ stages:
       size: 38594
     - path: params.yaml
       hash: md5
-      md5: bc78f35ce839475092590a77e74ad450
-      size: 1394
+      md5: c635d8bcc5fe4b585a97c04530ef628b
+      size: 1457
     - path: src/03_normalize.py
       hash: md5
-      md5: dc51912aad109f0349d24b3bdaf763db
-      size: 1256
+      md5: e7e54772e2e375d2fdaf55cccc91bf8e
+      size: 1294
     params:
       params.yaml:
         data.model_ready.kmeans_scaled_path: 
@@ -115,12 +115,12 @@ stages:
       size: 122953
     - path: params.yaml
       hash: md5
-      md5: bc78f35ce839475092590a77e74ad450
-      size: 1394
+      md5: c635d8bcc5fe4b585a97c04530ef628b
+      size: 1457
     - path: src/05_linear_model.py
       hash: md5
-      md5: 004a0b77855eab661d9a9f7b8b6b6227
-      size: 1933
+      md5: 5a81de43c997944aa985b397c4612009
+      size: 2006
     params:
       params.yaml:
         data.model_ready.linear_scaled_path: 
@@ -145,12 +145,12 @@ stages:
       size: 38594
     - path: params.yaml
       hash: md5
-      md5: bc78f35ce839475092590a77e74ad450
-      size: 1394
+      md5: c635d8bcc5fe4b585a97c04530ef628b
+      size: 1457
     - path: src/04__KMeans.py
       hash: md5
-      md5: e286665373e05f1120ff4b9fa5ba27fc
-      size: 4345
+      md5: 5bd0400a9be2e91c844de82897ab9b22
+      size: 4480
     params:
       params.yaml:
         data.kmeans_metrics_path: metrics/kmeans_metrics.json
