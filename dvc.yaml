@@ -45,3 +45,11 @@ stages:
     - src/07_knn.py
     outs:
     - models/knn.pkl
+  kmeans:
+    cmd: python src/04_kmeans.py
+    deps:
+    - data/processed/housing_clean.csv
+    - data/processed/housing_scaled.csv
+    - src/04_kmeans.py
+    outs:
+    - models/kmeans.joblib

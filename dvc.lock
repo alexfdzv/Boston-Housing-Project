@@ -5,64 +5,64 @@ stages:
     deps:
     - path: data/raw/housing.csv
       hash: md5
-      md5: d4accdce7a25600298819f8e28e8d593
-      size: 49082
+      md5: dbe56b17d8dce8136b02527be7f37f17
+      size: 49178
     - path: src/01_load_data.py
       hash: md5
-      md5: 90ec6ef101689649b496d0ddd70fe53a
-      size: 586
+      md5: cc127b2a47277b151b09edd11eb382bb
+      size: 953
     outs:
     - path: data/processed/_loaded.csv
       hash: md5
-      md5: 816accbde67bef53bf4ba77861bc2900
-      size: 37652
+      md5: c07589278bd162f2df27c079b30bf09b
+      size: 37724
   clean:
     cmd: python src/02_clean_data.py
     deps:
     - path: data/processed/_loaded.csv
       hash: md5
-      md5: 816accbde67bef53bf4ba77861bc2900
-      size: 37652
+      md5: c07589278bd162f2df27c079b30bf09b
+      size: 37724
     - path: src/02_clean_data.py
       hash: md5
-      md5: 94d9e4ca51a82450cdb40ccf7ad19f69
-      size: 4156
+      md5: c10b271b109e61b2eaa4b396c54548f6
+      size: 2162
     outs:
     - path: data/processed/housing_clean.csv
       hash: md5
-      md5: 7d2e703fdc87d3568c126b00c07e10e1
-      size: 39606
+      md5: 5a8a8585a4d3e8d0e4eae16e45742b2e
+      size: 39555
   normalize:
     cmd: python src/03_normalize.py
     deps:
     - path: data/processed/housing_clean.csv
       hash: md5
-      md5: 7d2e703fdc87d3568c126b00c07e10e1
-      size: 39606
+      md5: 5a8a8585a4d3e8d0e4eae16e45742b2e
+      size: 39555
     - path: src/03_normalize.py
       hash: md5
-      md5: 2563fffa929aeb1a2357401d9bc3a6e7
-      size: 718
+      md5: e7e54772e2e375d2fdaf55cccc91bf8e
+      size: 1294
     outs:
     - path: data/processed/housing_scaled.csv
       hash: md5
-      md5: 0ca216f88a8c6460a792e4b1a9f9e063
-      size: 122953
+      md5: bf97baacfb3221d05ee43f22de8f5975
+      size: 123176
   linear_model:
     cmd: python src/05_linear_model.py
     deps:
     - path: data/processed/housing_scaled.csv
       hash: md5
-      md5: 0ca216f88a8c6460a792e4b1a9f9e063
-      size: 122953
+      md5: bf97baacfb3221d05ee43f22de8f5975
+      size: 123176
     - path: params.yaml
       hash: md5
-      md5: 8dab19f718f5f4edfd406457efcd5327
-      size: 931
+      md5: c635d8bcc5fe4b585a97c04530ef628b
+      size: 1457
     - path: src/05_linear_model.py
       hash: md5
-      md5: a4f9dc2f3bbd7c4b6fa78d16dba582c3
-      size: 3586
+      md5: 5a81de43c997944aa985b397c4612009
+      size: 2006
     params:
       params.yaml:
         modeling.random_state: 42
@@ -70,15 +70,15 @@ stages:
     outs:
     - path: models/linear_model.joblib
       hash: md5
-      md5: 531b89628f52231ed73b2575edbe7d6c
+      md5: 246521e13dbeb31d4f96ab45d462e367
       size: 1089
   random_forest:
     cmd: python src/06_random_forest.py
     deps:
     - path: data/processed/housing_scaled.csv
       hash: md5
-      md5: 0ca216f88a8c6460a792e4b1a9f9e063
-      size: 122953
+      md5: bf97baacfb3221d05ee43f22de8f5975
+      size: 123176
     - path: src/06_random_forest.py
       hash: md5
       md5: 2ea2cf93d90ba2f124fe460ea4d210ae
@@ -86,15 +86,15 @@ stages:
     outs:
     - path: models/random_forest.pkl
       hash: md5
-      md5: d367b1fed1eff3f54982ec13a1c69be5
-      size: 3501793
+      md5: 89bbb22e57c1ecaa81d3e6fc781f1df3
+      size: 3507841
   knn:
     cmd: python src/07_knn.py
     deps:
     - path: data/processed/housing_scaled.csv
       hash: md5
-      md5: 0ca216f88a8c6460a792e4b1a9f9e063
-      size: 122953
+      md5: bf97baacfb3221d05ee43f22de8f5975
+      size: 123176
     - path: src/07_knn.py
       hash: md5
       md5: f894732af9f55a4a010a614ab4f27bae
@@ -102,5 +102,25 @@ stages:
     outs:
     - path: models/knn.pkl
       hash: md5
-      md5: 4a6e346852089fb4c6931e8ab8833873
-      size: 95750
+      md5: 786156a8adf7a937fbdd3cedaaa97d96
+      size: 95974
+  kmeans:
+    cmd: python src/04_kmeans.py
+    deps:
+    - path: data/processed/housing_clean.csv
+      hash: md5
+      md5: 5a8a8585a4d3e8d0e4eae16e45742b2e
+      size: 39555
+    - path: data/processed/housing_scaled.csv
+      hash: md5
+      md5: bf97baacfb3221d05ee43f22de8f5975
+      size: 123176
+    - path: src/04_kmeans.py
+      hash: md5
+      md5: 8b6259cb1b8cbd98670281107d70e4ac
+      size: 1115
+    outs:
+    - path: models/kmeans.joblib
+      hash: md5
+      md5: 35041ddb0d9bbe0804021fe21d477115
+      size: 3411

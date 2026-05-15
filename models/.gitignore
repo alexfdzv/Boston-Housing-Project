@@ -1,3 +1,4 @@
 /linear_model.joblib
 /random_forest.pkl
 /knn.pkl
+/kmeans.joblib
